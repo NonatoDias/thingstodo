@@ -1,0 +1,20 @@
+{
+    "short_name": "ThingsToDo",
+    "name": "ThingsToDo",
+    "icons": [
+        {
+            "src": "img/icon-manifest-2x.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "img/icon-manifest.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "whitesmoke",
+    "lang": "pt-BR"
+  }
