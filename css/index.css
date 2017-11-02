@@ -8,7 +8,6 @@ html, body{
 }
 
 body{
-    overflow: auto;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
@@ -27,6 +26,14 @@ body{
     user-select: none;
 }
 
+.div-layout {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+    height: 100%;
+}
+
 /**
 * Nav
 */
@@ -36,10 +43,21 @@ body{
     display: -webkit-flex;
     display: flex;
     height: 56px;
-    background: #009688;
+    background: #48825d;
     position: relative;
     -webkit-align-items: center;
     align-items: center;
+}
+
+.h1-title{
+    margin-left: 10px;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: normal;
+}
+
+.img-title{
+    margin-left: 10px;
 }
 
 @media (min-width: 600px){
@@ -48,33 +66,38 @@ body{
     }
 
     .h1-title{
-        margin-left: 24px;
         font-size: 1.3rem;
+    }
+
+    .img-title{
+        margin-left: 24px;
     }
 }
 
-.h1-title{
-    margin-left: 16px;
-    font-size: 1.2rem;
-    color: white;
-    font-weight: normal;
+.div-content {
+    -webkit-flex: 1;
+    flex: 1;
+    display: -webkit-flex;
+    display: flex;
+    overflow: hidden;
+    position: relative;
 }
 
-.div-content {
-    overflow-x: hidden;
-    overflow-y: auto;
+.div-scroll{
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 100%;
 }
 
 /**
 * Cards
 */
 .div-card {
-    margin: 16px auto;
-    width: 756px;
-    box-shadow: 0 3px 7px rgba(0,0,0,0.15);
-    border-radius: 2px;
     background: #fff;
     overflow: hidden;
+    border-radius: 2px;
+    margin: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .div-card-content{
@@ -115,4 +138,18 @@ body{
     margin: 0;
     color: #666;
     max-width: 550px;
+}
+
+@media (min-width: 600px){
+    .div-card {
+        margin: 16px;
+        box-shadow: 0 3px 7px rgba(0,0,0,0.15);
+    }
+}
+
+@media (min-width: 800px){
+    .div-card {
+        margin: 16px auto;
+        width: 756px;
+    }
 }
