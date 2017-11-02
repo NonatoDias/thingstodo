@@ -8,6 +8,7 @@ html, body{
 }
 
 body{
+    position: fixed;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
@@ -140,6 +141,76 @@ body{
     max-width: 550px;
 }
 
+/**
+* btn
+*/
+.div-btn-circle{
+    outline: 0px;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: normal;
+    user-select: none;
+    margin-right: 0px;
+    background: #48825d;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: none;
+    bottom: 24px;
+    cursor: pointer;
+    height: 56px;
+    position: fixed;
+    -webkit-transition-duration: 0.25s;
+    -webkit-transition-duration: 0.25s;
+    -moz-transition-duration: 0.25s;
+    -o-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+    -webkit-transition-property: background-color,-webkit-box-shadow;
+    right: 24px;
+    transition-property: background-color,box-shadow;
+    width: 56px;
+    z-index: 2;
+}
+
+.div-btn-circle:hover{
+    background: #749f84;
+    -webkit-box-shadow: 0px 5px 5px rgba(0,0,0,.2),0px 10px 14px rgba(0,0,0,.1),inset 0px 1px 0px rgba(255,255,255,.25),inset 0px -1px 0px rgba(0,0,0,.10);
+    -moz-box-shadow: 0px 5px 5px rgba(0,0,0,.2),0px 10px 14px rgba(0,0,0,.1),inset 0px 1px 0px rgba(255,255,255,.25),inset 0px -1px 0px rgba(0,0,0,.10);
+    box-shadow: 0px 5px 5px rgba(0,0,0,.2),0px 10px 14px rgba(0,0,0,.1),inset 0px 1px 0px rgba(255,255,255,.25),inset 0px -1px 0px rgba(0,0,0,.10)
+}
+
+.div-btn-shadow{
+    -webkit-box-shadow: 0px 2px 10px rgba(0,0,0,.3), 0px 0px 1px rgba(0,0,0,.1), inset 0px 1px 0px rgba(255,255,255,.25), inset 0px -1px 0px rgba(0,0,0,.15);
+    -moz-box-shadow: 0px 2px 10px rgba(0,0,0,.3),0px 0px 1px rgba(0,0,0,.1),inset 0px 1px 0px rgba(255,255,255,.25),inset 0px -1px 0px rgba(0,0,0,.15);
+    box-shadow: 0px 2px 10px rgba(0,0,0,.3), 0px 0px 1px rgba(0,0,0,.1), inset 0px 1px 0px rgba(255,255,255,.25), inset 0px -1px 0px rgba(0,0,0,.15);
+}
+
+.div-btn-icon {
+    line-height: 55px;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    margin: auto;
+    height: 100%;
+    outline: none;
+    width: 24px;
+}
+
+/**
+* Media 
+*/
+
+@media (max-width: 410px){
+    .img-card{
+        height: 40px;
+        margin-right: 12px;;
+    }
+
+    .div-card-content {
+        padding: 14px;
+    }
+}
+
 @media (min-width: 600px){
     .div-card {
         margin: 16px;
@@ -152,4 +223,10 @@ body{
         margin: 16px auto;
         width: 756px;
     }
+
+    .div-btn-circle{
+        right: 30px;
+        bottom: 30px;
+    }
 }
+
