@@ -43,11 +43,7 @@
             });
 
             that.btn.onclick = function(){
-                controller.addItem({
-                    type: 0,
-                    title: "TEste",
-                    text: "tentando criar algo"
-                });
+                viewAddItem.render();
             }
         },
 
@@ -68,12 +64,61 @@
         }
     }
 
+    var viewAddItem = {
+        init: function(){
+            this.el = webapp.q(".div-cards-group");
+        },
+
+        render: function(){
+            var that = this;
+            var cardAdd = webapp.q("#id-card-add")
+            if(cardAdd){
+                cardAdd.parentNode.removeChild(cardAdd);
+            }
+            that.html();
+
+            webapp.q("#btn-add-item").onclick = function(){
+                controller.addItem({
+                    type: 0,
+                    title: webapp.q("#input-item-title").value,
+                    text: webapp.q("#textarea-item-desc").value
+                });
+            }
+        },
+
+        html: function(){
+            this.el.insertAdjacentHTML("afterbegin", 
+            '<div id="id-card-add" class="div-card">'+
+                '<div class="div-card-content div-form">'+
+                    '<div class="div-card-description">'+
+                        '<div class="div-card-title">'+
+                            '<img class="" src="img/todo.png" alt="">'+
+                            '<h1 class="h-card-title">Novo Item</h1>'+
+                        '</div>'+
+                        '<div class="div-card-form">'+
+                                '<img class="img-form" src="img/label.png" alt="">'+
+                                '<input id="input-item-title" placeholder="Título" type="text" class="input-form">'+
+                        '</div>'+
+                        '<div class="div-card-form">'+
+                                '<img class="img-form" src="img/textarea.png" alt="">'+
+                                '<textarea id="textarea-item-desc" placeholder="Descrição" class="input-form" id="" cols="30" rows="4"></textarea>'+
+                        '</div>'+
+                        '<div style="margin-top: 10px; float: right;">'+
+                            '<button id="btn-add-item" class="btn">Adicionar</button>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>');
+        }
+    }
+
 
 /*======== controller ======== */
 
     var controller = {
         init: function(){
             model.listToDo.bind(viewCards);
+            viewAddItem.init();
             viewCards.init();
         },
 

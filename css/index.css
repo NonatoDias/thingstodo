@@ -107,6 +107,10 @@ body{
     display: flex;
 }
 
+.div-card-content.div-form{
+    padding: 16px 25px;
+}
+
 .img-card{
     height: 50px;
     margin-right: 16px;
@@ -144,6 +148,30 @@ body{
 /**
 * btn
 */
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: none;
+    border-radius: 0px;
+    color: #fff;
+    background-color: #48825d;
+}
+
 .div-btn-circle{
     outline: 0px;
     text-align: center;
@@ -197,6 +225,52 @@ body{
 }
 
 /**
+* Forms
+*/
+.div-card-form{
+    display: -webkit-flex;
+    display: flex;
+    padding-top: 15px;
+}
+
+.div-form .h-card-title{
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.img-form{
+    height: 40px;
+    padding-right: 10px;
+}
+
+.input-form{
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+}
+
+.textarea-form{
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+}
+
+.label-form {
+    width: 90px;
+    font-weight: 600;
+    padding: 5px 10px 0px 0px;
+}
+
+/**
 * Media 
 */
 
@@ -209,6 +283,16 @@ body{
     .div-card-content {
         padding: 14px;
     }
+
+    .div-card-content.div-form{
+        padding: 16px 20px;
+    }
+
+    .label-form {
+        font-size: .9em;
+        padding: 5px 7px 0px 0px;
+    }
+
 }
 
 @media (min-width: 600px){
