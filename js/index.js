@@ -8,16 +8,7 @@
 
  (function(webapp){
     var model = {
-        cards: webapp.create([]),
-        init: function(){
-            var main = webapp.loadModel("main");
-            var that = this;
-            if(main){
-                for(key in main){
-                    this[key].data(main[key]);
-                }
-            }
-        }
+        cards: webapp.model("cards", []),
     }
 
 /* ========== views =========*/
@@ -37,9 +28,12 @@
 
     var controller = {
         init: function(){
-            model.init();
             viewCards.init();
             console.log(model.cards.data());
+        },
+
+        data: function(key, value){
+            return model[key].data(value);
         }
     }
 
@@ -50,19 +44,28 @@
 
  })((function(window, document){
 
+    function loadData(key){
+        return JSON.parse(localStorage.getItem(key));
+    }
+
+    function storeData(key, data){
+        localStorage.setItem(key, JSON.stringify(data));
+        return data;
+    }
     /**
      * Cria um modelo com databind
      * @param data 
      */
-    function modelFactory(data){
-		this._fbs_ = [];
-		this._d_ = data;
+    function modelFactory(key, defaultValue){
+        this._fbs_ = [];
+        this.key = key;
+		this._d_ = loadData(key) || defaultValue;
 	}
 
 	modelFactory.prototype = {
 		data: function(data){
 			if(data !== undefined){
-				this._d_ = data;
+				this._d_ = storeData(this.key, data);
 				this._fbs_.forEach(function(f){
 					try{
 						f.render();
@@ -108,20 +111,8 @@
         /**
          * Cria um objeto com databind
          */
-        create: function(data){
-			return new modelFactory(data);
-        },
-
-        loadModel: function(key){
-            return JSON.parse(localStorage.getItem(key));
-        },
-
-        storeModel: function(key, model){
-            localStorage.setItem(key, JSON.stringify(model));
-        },
-
-        removeModel: function(key){
-            localStorage.removeItem(key);
+        model: function(key, defaultValue){
+			return new modelFactory(key, defaultValue);
         }
     }
 
