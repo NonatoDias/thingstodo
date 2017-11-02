@@ -7,19 +7,64 @@
  */
 
  (function(webapp){
+     
+    var imgTypes = [
+        "img/lowpriority.png",
+        "img/mediumpriority.png",
+        "img/highpriority.png",
+    ]
+    /**
+     * Modelo
+     * listToDo: todos os itens
+     */
     var model = {
-        cards: webapp.model("cards", []),
+        listToDo: webapp.model("listToDo", [{
+            type: 0,
+            title: "Atividade",
+            text: "tentando criar algo"
+        }])
     }
 
 /* ========== views =========*/
     var viewCards = {
         init: function(){
             this.el = webapp.q(".div-cards-group");
+            this.btn = webapp.q("#add-itemtodo");
             this.render();
         },
 
         render: function(){
-            console.log(this.el);
+            var that = this;
+            var listToDo = controller.data("listToDo");
+            that.el.innerHTML = '';
+
+            listToDo.forEach(function(item){
+                that.cardHtml(item);
+            });
+
+            that.btn.onclick = function(){
+                controller.addItem({
+                    type: 0,
+                    title: "TEste",
+                    text: "tentando criar algo"
+                });
+            }
+        },
+
+        cardHtml: function(item){
+            this.el.insertAdjacentHTML("afterbegin", 
+
+            '<div class="div-card">'+
+                '<div class="div-card-content">'+
+                    '<img class="img-card" src="'+imgTypes[item.type]+'" alt="" srcset="">'+
+                    '<div class="div-card-description">'+
+                        '<div class="div-card-title">'+
+                            '<h1 class="h-card-title">'+item.title+'</h1>'+
+                        '</div>'+
+                        '<p class="p-card-text">'+item.text+'</p>'+
+                    '</div>'+
+                '</div>'+
+            '</div>');
         }
     }
 
@@ -28,19 +73,22 @@
 
     var controller = {
         init: function(){
+            model.listToDo.bind(viewCards);
             viewCards.init();
-            console.log(model.cards.data());
         },
 
         data: function(key, value){
             return model[key].data(value);
+        },
+
+        addItem(item){
+            var listToDo =  this.data("listToDo");
+            listToDo.push(item);
+            this.data("listToDo", listToDo);
         }
     }
 
     controller.init();
-
-
-
 
  })((function(window, document){
 
@@ -59,7 +107,7 @@
     function modelFactory(key, defaultValue){
         this._fbs_ = [];
         this.key = key;
-		this._d_ = loadData(key) || defaultValue;
+		this._d_ = loadData(key) || storeData(key, defaultValue);
 	}
 
 	modelFactory.prototype = {
