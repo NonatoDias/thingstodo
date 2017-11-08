@@ -117,9 +117,69 @@
 
     var controller = {
         init: function(){
+            this.registerSW();
             model.listToDo.bind(viewCards);
             viewAddItem.init();
             viewCards.init();
+        },
+
+        registerSW: function(){
+            var ctrl = this;
+
+            if (!navigator.serviceWorker) return;
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').then(function(reg) {
+                    
+                    if (!navigator.serviceWorker.controller) {
+                        return;
+                    }
+                
+                    if (reg.waiting) {
+                        ctrl._updateReady(reg.waiting);
+                        return;
+                    }
+                
+                    if (reg.installing) {
+                        ctrl._trackInstalling(reg.installing);
+                        return;
+                    }
+                
+                    reg.addEventListener('updatefound', function() {
+                        ctrl._trackInstalling(reg.installing);
+                    });
+                });
+
+                // Ensure refresh is only called once.
+                // This works around a bug in "force update on reload".
+                var refreshing;
+                navigator.serviceWorker.addEventListener('controllerchange', function() {
+                    if (refreshing) 
+                        return;
+                    window.location.reload();
+                    refreshing = true;
+                });
+            });
+
+        },
+
+        _trackInstalling: function(worker) {
+            var ctrl = this;
+            worker.addEventListener('statechange', function() {
+                if (worker.state == 'installed') {
+                    ctrl._updateReady(worker);
+                }
+            });
+        },
+
+        _updateReady: function(worker) {
+            /*var toast = this._toastsView.show("New version available", {
+              buttons: ['refresh', 'dismiss']
+            });*/
+          
+            /*toast.answer.then(function(answer) {
+              if (answer != 'refresh') return;
+              worker.postMessage({action: 'skipWaiting'});
+            });*/
         },
 
         data: function(key, value){
