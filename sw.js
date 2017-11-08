@@ -1,4 +1,4 @@
-var staticCacheName = 'thtodo-static-v3';
+var staticCacheName = 'thtodo-static-v4';
 
 self.addEventListener('install', function(event) {
     // TODO: cache /skeleton rather than the root page
@@ -8,6 +8,8 @@ self.addEventListener('install', function(event) {
             return cache.addAll([
                 'index.html',
                 'img/todo.png',
+                'img/label.png',
+                'img/textarea.png',
                 'js/index.js',
                 'css/index.css'
             ]);
