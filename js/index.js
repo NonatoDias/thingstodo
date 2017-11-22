@@ -18,18 +18,33 @@
      * listToDo: todos os itens
      */
     var model = {
-        listToDo: webapp.model("listToDo", [{
-            type: 0,
-            title: "Atividade",
-            text: "tentando criar algo"
-        }])
+        listToDo: webapp.model("listToDo", [])
     }
 
-/* ========== views =========*/
+/* =============== views =============*/
+    var viewMsgAvailable = {
+        init: function() {
+            this.el = webapp.q("#id-vwmsgavlbl"),
+            this.elClick = webapp.q("#vwmsgavlbl-click"),
+            this.el.style.display = "none";
+        },
+        render: function(callback) {
+            var that = this;
+            that.elClick.onclick = function() {
+                if(callback instanceof Function){
+                    callback();
+                    t.el.style.display = "none";
+                }
+            }
+            that.el.style.display = "block";
+        }
+    };
+
     var viewCards = {
         init: function(){
             this.el = webapp.q(".div-cards-group");
             this.btn = webapp.q("#add-itemtodo");
+            this.btnClear = webapp.q("#clear-alltodo");
             this.render();
         },
 
@@ -44,6 +59,10 @@
 
             that.btn.onclick = function(){
                 viewAddItem.render();
+            }
+
+            that.btnClear.onclick = function(){
+                controller.clearAll();
             }
         },
 
@@ -77,6 +96,7 @@
             }
             that.html();
 
+            webapp.q("#input-item-title").focus();
             webapp.q("#btn-add-item").onclick = function(){
                 controller.addItem({
                     type: 0,
@@ -117,10 +137,16 @@
 
     var controller = {
         init: function(){
+            viewMsgAvailable.init();
             this.registerSW();
             model.listToDo.bind(viewCards);
             viewAddItem.init();
             viewCards.init();
+        },
+
+        clearAll: function(){
+            controller.data("listToDo", []);
+            webapp.clearAll();
         },
 
         registerSW: function(){
@@ -172,14 +198,11 @@
         },
 
         _updateReady: function(worker) {
-            /*var toast = this._toastsView.show("New version available", {
-              buttons: ['refresh', 'dismiss']
-            });*/
-          
-            /*toast.answer.then(function(answer) {
-              if (answer != 'refresh') return;
-              worker.postMessage({action: 'skipWaiting'});
-            });*/
+            viewMsgAvailable.render(function() {
+                worker.postMessage({
+                    actionsw: "SKIPWAITING"
+                })
+            })
         },
 
         data: function(key, value){
@@ -266,6 +289,10 @@
          */
         model: function(key, defaultValue){
 			return new modelFactory(key, defaultValue);
+        },
+
+        clearAll: function(){
+            localStorage.clear();
         }
     }
 

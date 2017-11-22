@@ -12,6 +12,13 @@
     <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
+    <div id="id-vwmsgavlbl" class="div-vwmsgavlbl" style="display: none;">
+        <i class="fa fa-commenting-o" aria-hidden="true" style="font-size: 1.2em;"></i>
+        Novas configurações disponíveis: 
+        <span id="vwmsgavlbl-click" class="span-vwmsgavlbl-click">Atualizar</span>
+    </div>
+
+
     <div class="div-layout">
         <div class="div-navbar noselect">
             <img class="img-title" src="img/todo.png" alt="">
@@ -23,9 +30,13 @@
                 <div class="div-cards-group"></div>
 
             </div>
-            <div id="add-itemtodo" class="div-btn-circle div-btn-shadow">
-                <div class="div-btn-icon"> + </div>
+            <div id="add-itemtodo" title="Adicionar um item" style="right: 100px;" class="div-btn-circle div-btn-shadow">
+                <div class="div-btn-img"> <img src="img/add.png" alt=""> </div>
             </div>
+            <div id="clear-alltodo" title="Apagar Todos" class="div-btn-circle div-btn-danger div-btn-shadow">
+                <div class="div-btn-img"> <img src="img/clear.png" alt=""> </div>
+            </div>
+
         </div>
     </div>
     <script defer async src="js/index.js"></script>

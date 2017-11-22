@@ -1,15 +1,20 @@
-var staticCacheName = 'thtodo-static-v4';
+var CACHE_VERSION = 8;
+var CACHE_NAME = 'thtodo-v'+CACHE_VERSION;
+var OFFLINE_URL = '';
 
 self.addEventListener('install', function(event) {
     // TODO: cache /skeleton rather than the root page
 
     event.waitUntil(
-        caches.open(staticCacheName).then(function(cache) {
+        caches.open(CACHE_NAME).then(function(cache) {
             return cache.addAll([
                 'index.html',
                 'img/todo.png',
                 'img/label.png',
+                'img/add.png',
+                'img/clear.png',
                 'img/textarea.png',
+                'img/lowpriority.png',
                 'js/index.js',
                 'css/index.css'
             ]);
@@ -22,7 +27,7 @@ self.addEventListener('activate', function(event) {
         caches.keys().then(function(cacheNames) {
             return Promise.all(
                 cacheNames.filter(function(cacheName) {
-                    return cacheName.startsWith('thtodo-') && cacheName != staticCacheName;
+                    return /*cacheName.startsWith('thtodo-v') &&*/ cacheName != CACHE_NAME;
                 
                 }).map(function(cacheName) {
                     return caches.delete(cacheName);
@@ -33,18 +38,23 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    // TODO: respond to requests for the root page with
-    // the page skeleton from the cache
-    event.respondWith(
-        /*caches.match(event.request.url === (location.origin + "/") ? "/skeleton" :  event.request).then(function(response) {
-            return response || fetch(event.request);
-        })*/
-        fetch(event.request)
-    );
+    if ( event.request.url.startsWith(self.location.origin)) {
+        event.respondWith(
+            caches.match(event.request).then(function(response) {
+                return response || fetch(event.request).then(function(fetch_resp){
+                    console.log(fetch_resp.url);
+                    return fetch_resp;
+                });
+            })
+        );
+    }
 });
 
 self.addEventListener('message', function(event) {
-    if (event.data.action === 'skipWaiting') {
-        //self.skipWaiting();
+    if (event.data.actionsw === 'SKIPWAITING') {
+        self.skipWaiting().then(function(t) {
+
+            console.log("pulou a atualizacao", t);
+        });
     }
 });
