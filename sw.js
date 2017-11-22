@@ -1,4 +1,4 @@
-var CACHE_VERSION = 8;
+var CACHE_VERSION = 10;
 var CACHE_NAME = 'thtodo-v'+CACHE_VERSION;
 var OFFLINE_URL = '';
 
@@ -8,7 +8,7 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.addAll([
-                'index.html',
+                '/',
                 'img/todo.png',
                 'img/label.png',
                 'img/add.png',
