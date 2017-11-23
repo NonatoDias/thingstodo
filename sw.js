@@ -8,7 +8,7 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.addAll([
-                '/index.html',
+                (location.hostname === "nonatodias.github.io" ? 'https://nonatodias.github.io/thingstodo/index.html' : '/'),
                 'img/todo.png',
                 'img/label.png',
                 'img/add.png',
