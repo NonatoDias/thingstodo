@@ -1,4 +1,4 @@
-var CACHE_VERSION = 14;
+var CACHE_VERSION = 16;
 var CACHE_NAME = 'thtodo-v'+CACHE_VERSION;
 var OFFLINE_URL = '';
 
