@@ -1,4 +1,4 @@
-var CACHE_VERSION = 13;
+var CACHE_VERSION = 14;
 var CACHE_NAME = 'thtodo-v'+CACHE_VERSION;
 var OFFLINE_URL = '';
 
@@ -8,7 +8,7 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.addAll([
-                (location.hostname === "nonatodias.github.io" ? 'thingstodo/index.html' : '/'),
+                '/index.html',
                 'img/todo.png',
                 'img/label.png',
                 'img/add.png',
